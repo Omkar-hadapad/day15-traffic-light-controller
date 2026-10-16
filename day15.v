@@ -9,7 +9,7 @@
 // S2 -> ALL RED
 // S3 -> East-West GREEN
 // S4 -> East-West YELLOW
-// S5 -> ALL RED
+// S5 -> ALL RED 
 //
 // STATE_TIME = 4 clock cycles
 //
