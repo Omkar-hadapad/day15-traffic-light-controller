@@ -6,7 +6,7 @@ GHT day15_tb.and_y day15_tb.clk day15_tb.comp_A day15_tb.comp_B day15_tb.comp_eq
 ual day15_tb.dff_D day15_tb.dff_Q day15_tb.ew_green day15_tb.ew_red day15_tb.ew_\
 yellow day15_tb.fail_count day15_tb.i day15_tb.not_y day15_tb.ns_green day15_tb.\
 ns_red day15_tb.ns_yellow day15_tb.or_y day15_tb.output_state day15_tb.pass_coun\
-t day15_tb.r_ew_green day15_tb.r_ew_red day15_tb.r_ew_yellow day15_tb.r_ns_green\
+t day15_tb.r_ew_green day15_tb.r_ew_red   day15_tb.r_ew_yellow day15_tb.r_ns_green\
  day15_tb.r_ns_red day15_tb.r_ns_yellow day15_tb.ref_done day15_tb.ref_ew_green \
 day15_tb.ref_ew_red day15_tb.ref_ew_yellow day15_tb.ref_next_state day15_tb.ref_\
 next_timer day15_tb.ref_ns_green day15_tb.ref_ns_red day15_tb.ref_ns_yellow day1\
