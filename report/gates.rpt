@@ -8,7 +8,7 @@
 ============================================================
 
                               
-   Gate    Instances   Area    Library  
+  Gate    Instances   Area    Library  
 ----------------------------------------
 AND2X2             2   26.611    tsmc18 
 AND3X2             1   16.632    tsmc18 
