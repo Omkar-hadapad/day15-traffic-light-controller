@@ -1,4 +1,4 @@
-from pathlib import Path
+
 
 content = r'''# Day 15 — Traffic Light Controller
 
@@ -404,7 +404,3 @@ Digital VLSI • Verilog RTL • FSM Design • Cadence Genus
 </p>
 '''
 
-path = Path("/mnt/data/README_Day15_Traffic_Light_Controller.md")
-path.write_text(content, encoding="utf-8")
-print(f"Created: {path}")
-print(f"Size: {path.stat().st_size} bytes")
