@@ -1,7 +1,6 @@
 content = r'''# Day 15 — Traffic Light Controller
 
 
-
 <p align="center">
 
 &#x20; <b>Digital VLSI • Verilog RTL • FSM Design • Functional Verification • Cadence Genus</b>
