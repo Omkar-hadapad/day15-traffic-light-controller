@@ -1,0 +1,2787 @@
+ncsim> 
+ncsim> database -open waves -into waves.shm -default
+Created default SHM database waves
+ncsim> probe -create -shm day15_tb.A day15_tb.B day15_tb.EW_LIGHT day15_tb.NS_LI\
+GHT day15_tb.and_y day15_tb.clk day15_tb.comp_A day15_tb.comp_B day15_tb.comp_eq\
+ual day15_tb.dff_D day15_tb.dff_Q day15_tb.ew_green day15_tb.ew_red day15_tb.ew_\
+yellow day15_tb.fail_count day15_tb.i day15_tb.not_y day15_tb.ns_green day15_tb.\
+ns_red day15_tb.ns_yellow day15_tb.or_y day15_tb.output_state day15_tb.pass_coun\
+t day15_tb.r_ew_green day15_tb.r_ew_red day15_tb.r_ew_yellow day15_tb.r_ns_green\
+ day15_tb.r_ns_red day15_tb.r_ns_yellow day15_tb.ref_done day15_tb.ref_ew_green \
+day15_tb.ref_ew_red day15_tb.ref_ew_yellow day15_tb.ref_next_state day15_tb.ref_\
+next_timer day15_tb.ref_ns_green day15_tb.ref_ns_red day15_tb.ref_ns_yellow day1\
+5_tb.ref_state day15_tb.ref_timer day15_tb.reset day15_tb.s_ew_green day15_tb.s_\
+ew_red day15_tb.s_ew_yellow day15_tb.s_next_state day15_tb.s_ns_green day15_tb.s\
+_ns_red day15_tb.s_ns_yellow day15_tb.s_state day15_tb.s_timer_count day15_tb.s_\
+timer_done day15_tb.test_done day15_tb.test_next_state day15_tb.test_state day15\
+_tb.timer_count day15_tb.timer_done day15_tb.xor_y
+Created probe 1
+ncsim> run
+
+==========================================
+TEST 1 : BASIC GATES
+==========================================
+TIME=0 | RESET=0 | TIMER=x | DONE=x | STATE=xxx | NEXT=xxx | NS(RYG)=xxx | EW(RYG)=xxx
+PASS :                   NOT gate | Expected=1 Actual=1
+PASS :                   AND gate | Expected=0 Actual=0
+PASS :                    OR gate | Expected=0 Actual=0
+PASS :                   XOR gate | Expected=0 Actual=0
+PASS :                   NOT gate | Expected=1 Actual=1
+PASS :                   AND gate | Expected=0 Actual=0
+PASS :                    OR gate | Expected=1 Actual=1
+PASS :                   XOR gate | Expected=1 Actual=1
+PASS :                   NOT gate | Expected=0 Actual=0
+PASS :                   AND gate | Expected=0 Actual=0
+PASS :                    OR gate | Expected=1 Actual=1
+PASS :                   XOR gate | Expected=1 Actual=1
+PASS :                   NOT gate | Expected=0 Actual=0
+PASS :                   AND gate | Expected=1 Actual=1
+PASS :                    OR gate | Expected=1 Actual=1
+PASS :                   XOR gate | Expected=0 Actual=0
+
+==========================================
+TEST 2 : 3-BIT EQUALITY COMPARATOR
+==========================================
+PASS :           Comparator equal | Expected=1 Actual=1
+PASS :           Comparator equal | Expected=1 Actual=1
+PASS :           Comparator equal | Expected=1 Actual=1
+PASS :           Comparator equal | Expected=1 Actual=1
+PASS :           Comparator equal | Expected=1 Actual=1
+PASS :           Comparator equal | Expected=1 Actual=1
+PASS :           Comparator equal | Expected=1 Actual=1
+PASS :           Comparator equal | Expected=1 Actual=1
+PASS :         Comparator unequal | Expected=0 Actual=0
+
+==========================================
+TEST 3 : D FLIP-FLOP
+==========================================
+TIME=13000 | RESET=1 | TIMER=x | DONE=x | STATE=xxx | NEXT=xxx | NS(RYG)=xxx | EW(RYG)=xxx
+TIME=15000 | RESET=1 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :                  DFF reset | Expected=0 Actual=0
+TIME=16000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+TIME=25000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :                 DFF load 1 | Expected=1 Actual=1
+TIME=35000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :                 DFF load 0 | Expected=0 Actual=0
+
+==========================================
+TEST 4 : TIMER RESET
+==========================================
+TIME=36000 | RESET=1 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+TIME=45000 | RESET=1 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :                Timer reset | Expected=000 Actual=000
+PASS :           Timer done reset | Expected=0 Actual=0
+
+==========================================
+TEST 5 : TIMER COUNTING
+==========================================
+TIME=46000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+TIME=55000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :              Timer count 1 | Expected=001 Actual=001
+TIME=65000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :              Timer count 2 | Expected=010 Actual=010
+TIME=75000 | RESET=0 | TIMER=3 | DONE=1 | STATE=000 | NEXT=001 | NS(RYG)=001 | EW(RYG)=100
+PASS :              Timer count 3 | Expected=011 Actual=011
+PASS :                 Timer DONE | Expected=1 Actual=1
+TIME=85000 | RESET=0 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :             Timer rollover | Expected=000 Actual=000
+
+==========================================
+TEST 6 : FSM NEXT-STATE LOGIC
+==========================================
+PASS :          S0 + done=0 -> S0 | Expected=000 Actual=000
+PASS :          S0 + done=1 -> S1 | Expected=001 Actual=001
+PASS :          S1 + done=0 -> S1 | Expected=001 Actual=001
+PASS :          S1 + done=1 -> S2 | Expected=010 Actual=010
+PASS :          S2 + done=0 -> S2 | Expected=010 Actual=010
+PASS :          S2 + done=1 -> S3 | Expected=011 Actual=011
+PASS :          S3 + done=0 -> S3 | Expected=011 Actual=011
+PASS :          S3 + done=1 -> S4 | Expected=100 Actual=100
+PASS :          S4 + done=0 -> S4 | Expected=100 Actual=100
+TIME=95000 | RESET=0 | TIMER=1 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :          S4 + done=1 -> S5 | Expected=101 Actual=101
+PASS :          S5 + done=0 -> S5 | Expected=101 Actual=101
+PASS :          S5 + done=1 -> S0 | Expected=000 Actual=000
+
+==========================================
+TEST 7 : OUTPUT DECODER
+==========================================
+PASS :                S0 NS GREEN | Expected=1 Actual=1
+PASS :                  S0 EW RED | Expected=1 Actual=1
+PASS :                  S0 NS RED | Expected=0 Actual=0
+PASS :               S0 NS YELLOW | Expected=0 Actual=0
+PASS :               S0 EW YELLOW | Expected=0 Actual=0
+PASS :                S0 EW GREEN | Expected=0 Actual=0
+PASS :               S1 NS YELLOW | Expected=1 Actual=1
+PASS :                  S1 EW RED | Expected=1 Actual=1
+PASS :                  S1 NS RED | Expected=0 Actual=0
+PASS :                S1 NS GREEN | Expected=0 Actual=0
+PASS :               S1 EW YELLOW | Expected=0 Actual=0
+PASS :                S1 EW GREEN | Expected=0 Actual=0
+PASS :                  S2 NS RED | Expected=1 Actual=1
+PASS :                  S2 EW RED | Expected=1 Actual=1
+PASS :               S2 NS YELLOW | Expected=0 Actual=0
+PASS :                S2 NS GREEN | Expected=0 Actual=0
+PASS :               S2 EW YELLOW | Expected=0 Actual=0
+PASS :                S2 EW GREEN | Expected=0 Actual=0
+PASS :                  S3 NS RED | Expected=1 Actual=1
+PASS :                S3 EW GREEN | Expected=1 Actual=1
+PASS :               S3 NS YELLOW | Expected=0 Actual=0
+PASS :                S3 NS GREEN | Expected=0 Actual=0
+PASS :                  S3 EW RED | Expected=0 Actual=0
+PASS :               S3 EW YELLOW | Expected=0 Actual=0
+PASS :                  S4 NS RED | Expected=1 Actual=1
+PASS :               S4 EW YELLOW | Expected=1 Actual=1
+PASS :               S4 NS YELLOW | Expected=0 Actual=0
+PASS :                S4 NS GREEN | Expected=0 Actual=0
+PASS :                  S4 EW RED | Expected=0 Actual=0
+PASS :                S4 EW GREEN | Expected=0 Actual=0
+PASS :                  S5 NS RED | Expected=1 Actual=1
+PASS :                  S5 EW RED | Expected=1 Actual=1
+PASS :               S5 NS YELLOW | Expected=0 Actual=0
+PASS :                S5 NS GREEN | Expected=0 Actual=0
+PASS :               S5 EW YELLOW | Expected=0 Actual=0
+PASS :                S5 EW GREEN | Expected=0 Actual=0
+
+==========================================
+TEST 8 : COMPLETE DUT RESET
+==========================================
+TIME=104000 | RESET=1 | TIMER=1 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+TIME=105000 | RESET=1 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=000 Actual=000
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=000 Actual=000
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=1 Actual=1
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+
+==========================================
+TEST 9 : REFERENCE MODEL VERIFICATION
+==========================================
+TIME=106000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+TIME=115000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=000 Actual=000
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=000 Actual=000
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=1 Actual=1
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=125000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=000 Actual=000
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=000 Actual=000
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=1 Actual=1
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=135000 | RESET=0 | TIMER=3 | DONE=1 | STATE=000 | NEXT=001 | NS(RYG)=001 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=000 Actual=000
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=001 Actual=001
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=1 Actual=1
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=145000 | RESET=0 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=001 Actual=001
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=001 Actual=001
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=155000 | RESET=0 | TIMER=1 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=001 Actual=001
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=001 Actual=001
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=165000 | RESET=0 | TIMER=2 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=001 Actual=001
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=001 Actual=001
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=175000 | RESET=0 | TIMER=3 | DONE=1 | STATE=001 | NEXT=010 | NS(RYG)=010 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=001 Actual=001
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=010 Actual=010
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=185000 | RESET=0 | TIMER=0 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=010 Actual=010
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=010 Actual=010
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=195000 | RESET=0 | TIMER=1 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=010 Actual=010
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=010 Actual=010
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=205000 | RESET=0 | TIMER=2 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=010 Actual=010
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=010 Actual=010
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=215000 | RESET=0 | TIMER=3 | DONE=1 | STATE=010 | NEXT=011 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=010 Actual=010
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=011 Actual=011
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=225000 | RESET=0 | TIMER=0 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : rence vs Structural STATE | Expected=011 Actual=011
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=011 Actual=011
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=235000 | RESET=0 | TIMER=1 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : rence vs Structural STATE | Expected=011 Actual=011
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=011 Actual=011
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=245000 | RESET=0 | TIMER=2 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : rence vs Structural STATE | Expected=011 Actual=011
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=011 Actual=011
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=255000 | RESET=0 | TIMER=3 | DONE=1 | STATE=011 | NEXT=100 | NS(RYG)=100 | EW(RYG)=001
+PASS : rence vs Structural STATE | Expected=011 Actual=011
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=100 Actual=100
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=265000 | RESET=0 | TIMER=0 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : rence vs Structural STATE | Expected=100 Actual=100
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=100 Actual=100
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=275000 | RESET=0 | TIMER=1 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : rence vs Structural STATE | Expected=100 Actual=100
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=100 Actual=100
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=285000 | RESET=0 | TIMER=2 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : rence vs Structural STATE | Expected=100 Actual=100
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=100 Actual=100
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=295000 | RESET=0 | TIMER=3 | DONE=1 | STATE=100 | NEXT=101 | NS(RYG)=100 | EW(RYG)=010
+PASS : rence vs Structural STATE | Expected=100 Actual=100
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=101 Actual=101
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=305000 | RESET=0 | TIMER=0 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=101 Actual=101
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=101 Actual=101
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=315000 | RESET=0 | TIMER=1 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=101 Actual=101
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=101 Actual=101
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=325000 | RESET=0 | TIMER=2 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=101 Actual=101
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=101 Actual=101
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=335000 | RESET=0 | TIMER=3 | DONE=1 | STATE=101 | NEXT=000 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=101 Actual=101
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=000 Actual=000
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=345000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=000 Actual=000
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=000 Actual=000
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=1 Actual=1
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=355000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=000 Actual=000
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=000 Actual=000
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=1 Actual=1
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=365000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=000 Actual=000
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=000 Actual=000
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=1 Actual=1
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=375000 | RESET=0 | TIMER=3 | DONE=1 | STATE=000 | NEXT=001 | NS(RYG)=001 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=000 Actual=000
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=001 Actual=001
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=1 Actual=1
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=385000 | RESET=0 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=001 Actual=001
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=001 Actual=001
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=395000 | RESET=0 | TIMER=1 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=001 Actual=001
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=001 Actual=001
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=405000 | RESET=0 | TIMER=2 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=001 Actual=001
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=001 Actual=001
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=415000 | RESET=0 | TIMER=3 | DONE=1 | STATE=001 | NEXT=010 | NS(RYG)=010 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=001 Actual=001
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=010 Actual=010
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=425000 | RESET=0 | TIMER=0 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=010 Actual=010
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=010 Actual=010
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=435000 | RESET=0 | TIMER=1 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=010 Actual=010
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=010 Actual=010
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=445000 | RESET=0 | TIMER=2 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=010 Actual=010
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=010 Actual=010
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=455000 | RESET=0 | TIMER=3 | DONE=1 | STATE=010 | NEXT=011 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=010 Actual=010
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=011 Actual=011
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=465000 | RESET=0 | TIMER=0 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : rence vs Structural STATE | Expected=011 Actual=011
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=011 Actual=011
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=475000 | RESET=0 | TIMER=1 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : rence vs Structural STATE | Expected=011 Actual=011
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=011 Actual=011
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=485000 | RESET=0 | TIMER=2 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : rence vs Structural STATE | Expected=011 Actual=011
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=011 Actual=011
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=495000 | RESET=0 | TIMER=3 | DONE=1 | STATE=011 | NEXT=100 | NS(RYG)=100 | EW(RYG)=001
+PASS : rence vs Structural STATE | Expected=011 Actual=011
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=100 Actual=100
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=505000 | RESET=0 | TIMER=0 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : rence vs Structural STATE | Expected=100 Actual=100
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=100 Actual=100
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=515000 | RESET=0 | TIMER=1 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : rence vs Structural STATE | Expected=100 Actual=100
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=100 Actual=100
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=525000 | RESET=0 | TIMER=2 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : rence vs Structural STATE | Expected=100 Actual=100
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=100 Actual=100
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=535000 | RESET=0 | TIMER=3 | DONE=1 | STATE=100 | NEXT=101 | NS(RYG)=100 | EW(RYG)=010
+PASS : rence vs Structural STATE | Expected=100 Actual=100
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=101 Actual=101
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=545000 | RESET=0 | TIMER=0 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=101 Actual=101
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=101 Actual=101
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=555000 | RESET=0 | TIMER=1 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=101 Actual=101
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=101 Actual=101
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=565000 | RESET=0 | TIMER=2 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=101 Actual=101
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=101 Actual=101
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=575000 | RESET=0 | TIMER=3 | DONE=1 | STATE=101 | NEXT=000 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=101 Actual=101
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=000 Actual=000
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=585000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=000 Actual=000
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=000 Actual=000
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=1 Actual=1
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=595000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=000 Actual=000
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=000 Actual=000
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=1 Actual=1
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=605000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=000 Actual=000
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=000 Actual=000
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=1 Actual=1
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=615000 | RESET=0 | TIMER=3 | DONE=1 | STATE=000 | NEXT=001 | NS(RYG)=001 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=000 Actual=000
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=001 Actual=001
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=1 Actual=1
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=625000 | RESET=0 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=001 Actual=001
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=001 Actual=001
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=635000 | RESET=0 | TIMER=1 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=001 Actual=001
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=001 Actual=001
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=645000 | RESET=0 | TIMER=2 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=001 Actual=001
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=001 Actual=001
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=655000 | RESET=0 | TIMER=3 | DONE=1 | STATE=001 | NEXT=010 | NS(RYG)=010 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=001 Actual=001
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=010 Actual=010
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=665000 | RESET=0 | TIMER=0 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=010 Actual=010
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=010 Actual=010
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=675000 | RESET=0 | TIMER=1 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=010 Actual=010
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=010 Actual=010
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=685000 | RESET=0 | TIMER=2 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=010 Actual=010
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=010 Actual=010
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=695000 | RESET=0 | TIMER=3 | DONE=1 | STATE=010 | NEXT=011 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=010 Actual=010
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=011 Actual=011
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=705000 | RESET=0 | TIMER=0 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : rence vs Structural STATE | Expected=011 Actual=011
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=011 Actual=011
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=715000 | RESET=0 | TIMER=1 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : rence vs Structural STATE | Expected=011 Actual=011
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=011 Actual=011
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=725000 | RESET=0 | TIMER=2 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : rence vs Structural STATE | Expected=011 Actual=011
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=011 Actual=011
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=735000 | RESET=0 | TIMER=3 | DONE=1 | STATE=011 | NEXT=100 | NS(RYG)=100 | EW(RYG)=001
+PASS : rence vs Structural STATE | Expected=011 Actual=011
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=100 Actual=100
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=745000 | RESET=0 | TIMER=0 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : rence vs Structural STATE | Expected=100 Actual=100
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=100 Actual=100
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=755000 | RESET=0 | TIMER=1 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : rence vs Structural STATE | Expected=100 Actual=100
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=100 Actual=100
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=765000 | RESET=0 | TIMER=2 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : rence vs Structural STATE | Expected=100 Actual=100
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=100 Actual=100
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=775000 | RESET=0 | TIMER=3 | DONE=1 | STATE=100 | NEXT=101 | NS(RYG)=100 | EW(RYG)=010
+PASS : rence vs Structural STATE | Expected=100 Actual=100
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=101 Actual=101
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=0 Actual=0
+PASS : e vs Structural EW YELLOW | Expected=1 Actual=1
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=785000 | RESET=0 | TIMER=0 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=101 Actual=101
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=101 Actual=101
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=795000 | RESET=0 | TIMER=1 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=101 Actual=101
+PASS : rence vs Structural TIMER | Expected=001 Actual=001
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=101 Actual=101
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=805000 | RESET=0 | TIMER=2 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=101 Actual=101
+PASS : rence vs Structural TIMER | Expected=010 Actual=010
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=101 Actual=101
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=815000 | RESET=0 | TIMER=3 | DONE=1 | STATE=101 | NEXT=000 | NS(RYG)=100 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=101 Actual=101
+PASS : rence vs Structural TIMER | Expected=011 Actual=011
+PASS :  erence vs Structural DONE | Expected=1 Actual=1
+PASS :  vs Structural NEXT STATE | Expected=000 Actual=000
+PASS :  ence vs Structural NS RED | Expected=1 Actual=1
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=0 Actual=0
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=825000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : rence vs Structural STATE | Expected=000 Actual=000
+PASS : rence vs Structural TIMER | Expected=000 Actual=000
+PASS :  erence vs Structural DONE | Expected=0 Actual=0
+PASS :  vs Structural NEXT STATE | Expected=000 Actual=000
+PASS :  ence vs Structural NS RED | Expected=0 Actual=0
+PASS : e vs Structural NS YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural NS GREEN | Expected=1 Actual=1
+PASS :  ence vs Structural EW RED | Expected=1 Actual=1
+PASS : e vs Structural EW YELLOW | Expected=0 Actual=0
+PASS :  ce vs Structural EW GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+
+==========================================
+TEST 10 : STRUCTURAL VS RTL
+==========================================
+TIME=826000 | RESET=1 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+TIME=836000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+TIME=845000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=855000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=865000 | RESET=0 | TIMER=3 | DONE=1 | STATE=000 | NEXT=001 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=875000 | RESET=0 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=885000 | RESET=0 | TIMER=1 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=895000 | RESET=0 | TIMER=2 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=905000 | RESET=0 | TIMER=3 | DONE=1 | STATE=001 | NEXT=010 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=915000 | RESET=0 | TIMER=0 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=925000 | RESET=0 | TIMER=1 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=935000 | RESET=0 | TIMER=2 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=945000 | RESET=0 | TIMER=3 | DONE=1 | STATE=010 | NEXT=011 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=955000 | RESET=0 | TIMER=0 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=965000 | RESET=0 | TIMER=1 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=975000 | RESET=0 | TIMER=2 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=985000 | RESET=0 | TIMER=3 | DONE=1 | STATE=011 | NEXT=100 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=995000 | RESET=0 | TIMER=0 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1005000 | RESET=0 | TIMER=1 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1015000 | RESET=0 | TIMER=2 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1025000 | RESET=0 | TIMER=3 | DONE=1 | STATE=100 | NEXT=101 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1035000 | RESET=0 | TIMER=0 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1045000 | RESET=0 | TIMER=1 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1055000 | RESET=0 | TIMER=2 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1065000 | RESET=0 | TIMER=3 | DONE=1 | STATE=101 | NEXT=000 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1075000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1085000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1095000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1105000 | RESET=0 | TIMER=3 | DONE=1 | STATE=000 | NEXT=001 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1115000 | RESET=0 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1125000 | RESET=0 | TIMER=1 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1135000 | RESET=0 | TIMER=2 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1145000 | RESET=0 | TIMER=3 | DONE=1 | STATE=001 | NEXT=010 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1155000 | RESET=0 | TIMER=0 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1165000 | RESET=0 | TIMER=1 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1175000 | RESET=0 | TIMER=2 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1185000 | RESET=0 | TIMER=3 | DONE=1 | STATE=010 | NEXT=011 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1195000 | RESET=0 | TIMER=0 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=1205000 | RESET=0 | TIMER=1 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=1215000 | RESET=0 | TIMER=2 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=1225000 | RESET=0 | TIMER=3 | DONE=1 | STATE=011 | NEXT=100 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=1235000 | RESET=0 | TIMER=0 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1245000 | RESET=0 | TIMER=1 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1255000 | RESET=0 | TIMER=2 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1265000 | RESET=0 | TIMER=3 | DONE=1 | STATE=100 | NEXT=101 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1275000 | RESET=0 | TIMER=0 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1285000 | RESET=0 | TIMER=1 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1295000 | RESET=0 | TIMER=2 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1305000 | RESET=0 | TIMER=3 | DONE=1 | STATE=101 | NEXT=000 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1315000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1325000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1335000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1345000 | RESET=0 | TIMER=3 | DONE=1 | STATE=000 | NEXT=001 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1355000 | RESET=0 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1365000 | RESET=0 | TIMER=1 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1375000 | RESET=0 | TIMER=2 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1385000 | RESET=0 | TIMER=3 | DONE=1 | STATE=001 | NEXT=010 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1395000 | RESET=0 | TIMER=0 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1405000 | RESET=0 | TIMER=1 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1415000 | RESET=0 | TIMER=2 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1425000 | RESET=0 | TIMER=3 | DONE=1 | STATE=010 | NEXT=011 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1435000 | RESET=0 | TIMER=0 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=1445000 | RESET=0 | TIMER=1 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=1455000 | RESET=0 | TIMER=2 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=1465000 | RESET=0 | TIMER=3 | DONE=1 | STATE=011 | NEXT=100 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=1475000 | RESET=0 | TIMER=0 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1485000 | RESET=0 | TIMER=1 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1495000 | RESET=0 | TIMER=2 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1505000 | RESET=0 | TIMER=3 | DONE=1 | STATE=100 | NEXT=101 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1515000 | RESET=0 | TIMER=0 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1525000 | RESET=0 | TIMER=1 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1535000 | RESET=0 | TIMER=2 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1545000 | RESET=0 | TIMER=3 | DONE=1 | STATE=101 | NEXT=000 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1555000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1565000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1575000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1585000 | RESET=0 | TIMER=3 | DONE=1 | STATE=000 | NEXT=001 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1595000 | RESET=0 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1605000 | RESET=0 | TIMER=1 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1615000 | RESET=0 | TIMER=2 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1625000 | RESET=0 | TIMER=3 | DONE=1 | STATE=001 | NEXT=010 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1635000 | RESET=0 | TIMER=0 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1645000 | RESET=0 | TIMER=1 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1655000 | RESET=0 | TIMER=2 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1665000 | RESET=0 | TIMER=3 | DONE=1 | STATE=010 | NEXT=011 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1675000 | RESET=0 | TIMER=0 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=1685000 | RESET=0 | TIMER=1 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=1695000 | RESET=0 | TIMER=2 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=1705000 | RESET=0 | TIMER=3 | DONE=1 | STATE=011 | NEXT=100 | NS(RYG)=100 | EW(RYG)=001
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=1 Actual=1
+TIME=1715000 | RESET=0 | TIMER=0 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1725000 | RESET=0 | TIMER=1 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1735000 | RESET=0 | TIMER=2 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1745000 | RESET=0 | TIMER=3 | DONE=1 | STATE=100 | NEXT=101 | NS(RYG)=100 | EW(RYG)=010
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=0 Actual=0
+PASS :  ructural vs RTL EW YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1755000 | RESET=0 | TIMER=0 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1765000 | RESET=0 | TIMER=1 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1775000 | RESET=0 | TIMER=2 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1785000 | RESET=0 | TIMER=3 | DONE=1 | STATE=101 | NEXT=000 | NS(RYG)=100 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=1 Actual=1
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1795000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1805000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1815000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1825000 | RESET=0 | TIMER=3 | DONE=1 | STATE=000 | NEXT=001 | NS(RYG)=001 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL NS GREEN | Expected=1 Actual=1
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+TIME=1835000 | RESET=0 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS :   Structural vs RTL NS RED | Expected=0 Actual=0
+PASS :  ructural vs RTL NS YELLOW | Expected=1 Actual=1
+PASS : tructural vs RTL NS GREEN | Expected=0 Actual=0
+PASS :   Structural vs RTL EW RED | Expected=1 Actual=1
+PASS :  ructural vs RTL EW YELLOW | Expected=0 Actual=0
+PASS : tructural vs RTL EW GREEN | Expected=0 Actual=0
+
+==========================================
+TEST 11 : SAFETY STRESS TEST
+==========================================
+TIME=1836000 | RESET=1 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+TIME=1845000 | RESET=1 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+TIME=1846000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1855000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1865000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1875000 | RESET=0 | TIMER=3 | DONE=1 | STATE=000 | NEXT=001 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1885000 | RESET=0 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1895000 | RESET=0 | TIMER=1 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1905000 | RESET=0 | TIMER=2 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1915000 | RESET=0 | TIMER=3 | DONE=1 | STATE=001 | NEXT=010 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1925000 | RESET=0 | TIMER=0 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1935000 | RESET=0 | TIMER=1 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1945000 | RESET=0 | TIMER=2 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1955000 | RESET=0 | TIMER=3 | DONE=1 | STATE=010 | NEXT=011 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1965000 | RESET=0 | TIMER=0 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1975000 | RESET=0 | TIMER=1 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1985000 | RESET=0 | TIMER=2 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=1995000 | RESET=0 | TIMER=3 | DONE=1 | STATE=011 | NEXT=100 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2005000 | RESET=0 | TIMER=0 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2015000 | RESET=0 | TIMER=1 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2025000 | RESET=0 | TIMER=2 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2035000 | RESET=0 | TIMER=3 | DONE=1 | STATE=100 | NEXT=101 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2045000 | RESET=0 | TIMER=0 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2055000 | RESET=0 | TIMER=1 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2065000 | RESET=0 | TIMER=2 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2075000 | RESET=0 | TIMER=3 | DONE=1 | STATE=101 | NEXT=000 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2085000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2095000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2105000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2115000 | RESET=0 | TIMER=3 | DONE=1 | STATE=000 | NEXT=001 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2125000 | RESET=0 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2135000 | RESET=0 | TIMER=1 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2145000 | RESET=0 | TIMER=2 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2155000 | RESET=0 | TIMER=3 | DONE=1 | STATE=001 | NEXT=010 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2165000 | RESET=0 | TIMER=0 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2175000 | RESET=0 | TIMER=1 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2185000 | RESET=0 | TIMER=2 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2195000 | RESET=0 | TIMER=3 | DONE=1 | STATE=010 | NEXT=011 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2205000 | RESET=0 | TIMER=0 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2215000 | RESET=0 | TIMER=1 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2225000 | RESET=0 | TIMER=2 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2235000 | RESET=0 | TIMER=3 | DONE=1 | STATE=011 | NEXT=100 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2245000 | RESET=0 | TIMER=0 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2255000 | RESET=0 | TIMER=1 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2265000 | RESET=0 | TIMER=2 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2275000 | RESET=0 | TIMER=3 | DONE=1 | STATE=100 | NEXT=101 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2285000 | RESET=0 | TIMER=0 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2295000 | RESET=0 | TIMER=1 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2305000 | RESET=0 | TIMER=2 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2315000 | RESET=0 | TIMER=3 | DONE=1 | STATE=101 | NEXT=000 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2325000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2335000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2345000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2355000 | RESET=0 | TIMER=3 | DONE=1 | STATE=000 | NEXT=001 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2365000 | RESET=0 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2375000 | RESET=0 | TIMER=1 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2385000 | RESET=0 | TIMER=2 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2395000 | RESET=0 | TIMER=3 | DONE=1 | STATE=001 | NEXT=010 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2405000 | RESET=0 | TIMER=0 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2415000 | RESET=0 | TIMER=1 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2425000 | RESET=0 | TIMER=2 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2435000 | RESET=0 | TIMER=3 | DONE=1 | STATE=010 | NEXT=011 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2445000 | RESET=0 | TIMER=0 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2455000 | RESET=0 | TIMER=1 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2465000 | RESET=0 | TIMER=2 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2475000 | RESET=0 | TIMER=3 | DONE=1 | STATE=011 | NEXT=100 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2485000 | RESET=0 | TIMER=0 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2495000 | RESET=0 | TIMER=1 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2505000 | RESET=0 | TIMER=2 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2515000 | RESET=0 | TIMER=3 | DONE=1 | STATE=100 | NEXT=101 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2525000 | RESET=0 | TIMER=0 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2535000 | RESET=0 | TIMER=1 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2545000 | RESET=0 | TIMER=2 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2555000 | RESET=0 | TIMER=3 | DONE=1 | STATE=101 | NEXT=000 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2565000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2575000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2585000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2595000 | RESET=0 | TIMER=3 | DONE=1 | STATE=000 | NEXT=001 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2605000 | RESET=0 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2615000 | RESET=0 | TIMER=1 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2625000 | RESET=0 | TIMER=2 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2635000 | RESET=0 | TIMER=3 | DONE=1 | STATE=001 | NEXT=010 | NS(RYG)=010 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2645000 | RESET=0 | TIMER=0 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2655000 | RESET=0 | TIMER=1 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2665000 | RESET=0 | TIMER=2 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2675000 | RESET=0 | TIMER=3 | DONE=1 | STATE=010 | NEXT=011 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2685000 | RESET=0 | TIMER=0 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2695000 | RESET=0 | TIMER=1 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2705000 | RESET=0 | TIMER=2 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2715000 | RESET=0 | TIMER=3 | DONE=1 | STATE=011 | NEXT=100 | NS(RYG)=100 | EW(RYG)=001
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2725000 | RESET=0 | TIMER=0 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2735000 | RESET=0 | TIMER=1 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2745000 | RESET=0 | TIMER=2 | DONE=0 | STATE=100 | NEXT=100 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2755000 | RESET=0 | TIMER=3 | DONE=1 | STATE=100 | NEXT=101 | NS(RYG)=100 | EW(RYG)=010
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2765000 | RESET=0 | TIMER=0 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2775000 | RESET=0 | TIMER=1 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2785000 | RESET=0 | TIMER=2 | DONE=0 | STATE=101 | NEXT=101 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2795000 | RESET=0 | TIMER=3 | DONE=1 | STATE=101 | NEXT=000 | NS(RYG)=100 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2805000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2815000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2825000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+TIME=2835000 | RESET=0 | TIMER=3 | DONE=1 | STATE=000 | NEXT=001 | NS(RYG)=001 | EW(RYG)=100
+PASS : NS one-hot safety
+PASS : EW one-hot safety
+PASS : No simultaneous GREEN
+
+==========================================
+TEST 12 : RESET RECOVERY
+==========================================
+TIME=2845000 | RESET=0 | TIMER=0 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+TIME=2855000 | RESET=0 | TIMER=1 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+TIME=2865000 | RESET=0 | TIMER=2 | DONE=0 | STATE=001 | NEXT=001 | NS(RYG)=010 | EW(RYG)=100
+TIME=2875000 | RESET=0 | TIMER=3 | DONE=1 | STATE=001 | NEXT=010 | NS(RYG)=010 | EW(RYG)=100
+TIME=2885000 | RESET=0 | TIMER=0 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+TIME=2895000 | RESET=0 | TIMER=1 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+TIME=2905000 | RESET=0 | TIMER=2 | DONE=0 | STATE=010 | NEXT=010 | NS(RYG)=100 | EW(RYG)=100
+TIME=2915000 | RESET=0 | TIMER=3 | DONE=1 | STATE=010 | NEXT=011 | NS(RYG)=100 | EW(RYG)=100
+TIME=2925000 | RESET=0 | TIMER=0 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+TIME=2935000 | RESET=0 | TIMER=1 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+TIME=2945000 | RESET=0 | TIMER=2 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+TIME=2946000 | RESET=1 | TIMER=2 | DONE=0 | STATE=011 | NEXT=011 | NS(RYG)=100 | EW(RYG)=001
+TIME=2955000 | RESET=1 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :    Reset recovery STATE S0 | Expected=000 Actual=000
+PASS :     Reset recovery TIMER 0 | Expected=000 Actual=000
+PASS :      Reset recovery DONE 0 | Expected=0 Actual=0
+PASS :    Reset recovery NS GREEN | Expected=1 Actual=1
+PASS :      Reset recovery EW RED | Expected=1 Actual=1
+
+==========================================
+TEST 13 : INVALID FSM STATE 110
+==========================================
+TIME=2956000 | RESET=0 | TIMER=0 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+PASS :    Invalid state 110 -> S0 | Expected=000 Actual=000
+PASS :              110 -> NS RED | Expected=1 Actual=1
+PASS :              110 -> EW RED | Expected=1 Actual=1
+PASS :        110 -> NS GREEN OFF | Expected=0 Actual=0
+PASS :        110 -> EW GREEN OFF | Expected=0 Actual=0
+
+==========================================
+TEST 14 : INVALID FSM STATE 111
+==========================================
+PASS :    Invalid state 111 -> S0 | Expected=000 Actual=000
+PASS :              111 -> NS RED | Expected=1 Actual=1
+PASS :              111 -> EW RED | Expected=1 Actual=1
+
+================================================
+DAY 15 TRAFFIC LIGHT CONTROLLER
+VERIFICATION COMPLETE
+================================================
+TOTAL PASS COUNT = 2718
+TOTAL FAIL COUNT = 0
+
+================================================
+ALL TESTS PASSED
+================================================
+BASIC GATES       : PASS
+COMPARATOR        : PASS
+DFF               : PASS
+TIMER             : PASS
+FSM               : PASS
+OUTPUT DECODER    : PASS
+STRUCTURAL DUT    : PASS
+RTL DUT           : PASS
+REFERENCE MODEL   : PASS
+STRUCTURAL vs RTL : PASS
+SAFETY            : PASS
+RESET RECOVERY    : PASS
+INVALID STATE     : PASS
+================================================
+TIME=2965000 | RESET=0 | TIMER=1 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+TIME=2975000 | RESET=0 | TIMER=2 | DONE=0 | STATE=000 | NEXT=000 | NS(RYG)=001 | EW(RYG)=100
+Simulation complete via $finish(1) at time 2980 NS + 0
+./day15_tb.v:2030         $finish;
+ncsim> 
+
