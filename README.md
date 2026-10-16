@@ -401,5 +401,4 @@ Digital VLSI • Verilog RTL • FSM Design • Cadence Genus
 <p align="center">
   <b>Day 15 — Traffic Light Controller · Next: Day 16 — Pedestrian-Crossing Traffic Light Controller</b>
 </p>
-'''
 
